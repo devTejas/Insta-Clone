@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap");
+
+a {
+  color: black !important;
+}
+
+.brand-logo,
+h2 {
+  font-family: "Grand Hotel", Verdana, Geneva, Tahoma, sans-serif, monospace;
+}
+
+.mycard {
+  margin-top: 30px;
+}
+
+.auth-card {
+  text-align: center;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+.label-field {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: black;
+}
+
+.input-field input[type="text"]:focus {
+  border-bottom: 1px solid rgb(8, 93, 252);
+  box-shadow: 0 1px 0 0 rgb(8, 93, 252);
+}
+
+/* SignUp.js -> applying css to toast container */
+#toast-container {
+  top: 50px !important;
+  right: 20px !important;
+  left: auto !important;
+}
+
+.linkText {
+  color: lightblue;
+  border-bottom: 1px solid #64b5f6 !important;
+  padding: 2px;
+  margin: 10px 0;
+  font-weight: 600 !important;
+  display: block;
+}
+
+.linkText:hover {
+  background-color: #64b5f6;
+  transition: 500ms ease-in-out;
+  color: white !important;
+}
