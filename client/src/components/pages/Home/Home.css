@@ -1,0 +1,12 @@
+.home {
+}
+
+.home-card {
+  margin: 20px auto;
+  max-width: 500px;
+  height: max-content;
+}
+
+.likeIcon {
+  color: red;
+}
