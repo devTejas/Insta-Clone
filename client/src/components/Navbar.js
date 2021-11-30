@@ -1,7 +1,7 @@
+import M from "materialize-css";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
-import M from "materialize-css";
 
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -41,7 +41,9 @@ const Navbar = () => {
                   <Link to="/create">Upload</Link>
                 </li>
                 <li>
-                  <a onClick={logoutUser}>Logout</a>
+                  <a className="btn #c62828 red darken-3" onClick={logoutUser}>
+                    LogOut
+                  </a>
                 </li>
               </div>
             )}

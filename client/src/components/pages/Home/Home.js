@@ -10,11 +10,7 @@ const Home = () => {
       },
     })
       .then((res) => res.json())
-      .then((result) => {
-        console.log(data, result.posts);
-        setData(result.posts);
-        console.log(data);
-      });
+      .then((result) => setData(result.posts.reverse()));
   }, []);
 
   return (

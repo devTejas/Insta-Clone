@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../App";
 import "./Profile.css";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
-  console.log(posts);
+  const { state, dispatch } = useContext(UserContext);
 
   useEffect(async () => {
     await fetch("/mypost", {
@@ -13,7 +14,7 @@ const Profile = () => {
       },
     })
       .then((res) => res.json())
-      .then((result) => setPosts(result.myPosts));
+      .then((result) => setPosts(result.myPosts.reverse()));
   }, []);
 
   return (
@@ -23,7 +24,7 @@ const Profile = () => {
           <img src="/sirsourav.jpg" alt="Person Image" />
         </div>
         <div className="profileDescription">
-          <h4>Sir Sourav Joshi</h4>
+          <h4>{state?.name}</h4>
           <div className="">
             <h6>40 Posts</h6>
             <h6>40 Followers</h6>
@@ -38,6 +39,7 @@ const Profile = () => {
           </div>
         ))}
       </div>
+      {!posts.length && <h2 className="noPostsText">NO POSTS TO DISPLAY!</h2>}
     </div>
   );
 };
