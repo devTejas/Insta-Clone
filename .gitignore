@@ -169,6 +169,7 @@ yarn-error.log*
 
 # global
 docs.md
+timeline.md
 
 # server
 keys.js

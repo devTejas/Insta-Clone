@@ -1,11 +1,13 @@
-import React, { useState } from "react";
 import M from "materialize-css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import "./CreatePost.css";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [images, setImages] = useState();
+  const navigate = useNavigate();
 
   const uploadPost = async () => {
     try {
@@ -28,7 +30,10 @@ const CreatePost = () => {
           console.log(data);
           if (data.error)
             M.toast({ html: data.error, classes: "#c62828 red darken-3" });
-          else M.toast({ html: "Success" });
+          else {
+            M.toast({ html: "Success" });
+            navigate("/");
+          }
         });
     } catch (err) {
       console.log(err);
