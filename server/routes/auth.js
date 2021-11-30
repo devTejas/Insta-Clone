@@ -15,9 +15,7 @@ router.post("/signup", (req, res) => {
   User.findOne({ email: email })
     .then((savedUser) => {
       if (savedUser)
-        return res
-          .status(422)
-          .json({ error: "User already exists with that email!" });
+        return res.status(422).json({ error: "User already exists!" });
       bcrypt.hash(password, 12).then((hashedPassword) => {
         const user = new User({
           name,
@@ -35,7 +33,14 @@ router.post("/signup", (req, res) => {
 
 // signin
 router.post("/signin", (req, res) => {
-  const { email, password } = req.body;
+  let { email, password, guestUser } = req.body;
+
+  if (guestUser) {
+    email = "tejashah456@gmail.com";
+    password = "heyTejasHere1";
+  }
+
+  // email/password are empty
   if (!email || !password)
     return res.status(422).json({ error: "Invalid Email or Password!" });
 
@@ -49,7 +54,8 @@ router.post("/signin", (req, res) => {
         .then((doMatch) => {
           if (doMatch) {
             const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-            res.json({ token });
+            const { _id, name, email } = savedUser;
+            res.json({ token, user: { _id, name, email } });
           } else
             return res
               .status(422)
