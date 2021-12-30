@@ -20,6 +20,23 @@ h2 {
   max-width: 400px;
 }
 
+.loginButtonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guestLoginBtn {
+  background-color: #e76f51;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  margin-left: 4px;
+}
+
 .label-field {
   font-size: 16px !important;
   font-weight: 600;
