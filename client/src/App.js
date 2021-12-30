@@ -1,13 +1,14 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./components/pages/Home/Home";
-import SignIn from "./components/pages/SignIn";
-import SignUp from "./components/pages/SignUp";
-import Profile from "./components/pages/Profile/Profile";
-import CreatePost from "./components/pages/CreatePost/CreatePost";
+import Home from "./pages/Home/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile/Profile";
+import CreatePost from "./pages/CreatePost/CreatePost";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { initialState, reducer } from "./reducers/userReducer";
+import ViewPost from "./pages/ViewPost/ViewPost";
 
 export const UserContext = createContext(reducer);
 
@@ -17,7 +18,7 @@ const AppRoutes = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
+    console.log("user- ", user);
 
     if (user) dispatch({ type: "USER", payload: user });
     else navigate("/signin");
@@ -30,6 +31,7 @@ const AppRoutes = () => {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/create" element={<CreatePost />} />
+      <Route path="/post/:id" element={<ViewPost />} />
     </Routes>
   );
 };
