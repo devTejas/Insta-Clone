@@ -3,12 +3,56 @@
 
 .home-card {
   margin: 20px auto;
+  padding: 8px 12px;
   max-width: 500px;
   height: max-content;
 }
 
-.postImage {
+.postImage > img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 30px !important;
+  border: 1px solid slateblue;
+  margin-top: 10px;
   cursor: pointer;
+}
+
+.post_bottom {
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  font-size: 20px;
+  border-top: 2px solid slateblue;
+  /* border: 2px solid salmon; */
+  padding: 4px 0;
+  margin: 8px 0;
+}
+
+.post_bottom > div {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+.post_bottom span {
+  background-color: transparent;
+  margin-left: 5px;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.postTitle {
+  margin-bottom: 10px;
+  font-size: large;
+  font-weight: 600;
+}
+
+.postBody {
+  margin-bottom: 10px;
+  font-size: medium;
 }
 
 .like-btn {
@@ -22,20 +66,6 @@
   color: transparent;
   background-color: transparent;
   border: 1px solid red;
-}
-
-.post_bottom {
-  width: 100%;
-  display: flex;
-  position: relative;
-  justify-content: space-around;
-  font-size: 20px;
-}
-
-.post_bottom > div {
-  display: flex;
-  align-items: center;
-  background-color: transparent;
 }
 
 .like-icon,
@@ -65,13 +95,6 @@
 .iconLiked:hover {
   background: rgba(230, 76, 76, 0.5);
   fill: white;
-}
-
-.post_bottom span {
-  background-color: transparent;
-  margin-left: 5px;
-  font-size: 12px;
-  color: var(--text);
 }
 
 .commentsSection {
