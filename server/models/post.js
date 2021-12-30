@@ -20,6 +20,8 @@ const postSchema = new mongoose.Schema({
   //   contentType: "String",
   //   default: [],
   // },
+  likes: [{ type: ObjectId, ref: "User" }],
+  comments: [{ text: String, postedBy: { type: ObjectId, ref: "User" } }],
   postedBy: {
     type: ObjectId,
     ref: "User",
@@ -27,3 +29,10 @@ const postSchema = new mongoose.Schema({
 });
 
 mongoose.model("Post", postSchema);
+
+/**
+ * title -> User of the post
+ * body -> text in the post
+ * ...
+ * comments -> { text -> textOfComment, title -> UserName of comment user }
+ */
