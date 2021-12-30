@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../App";
+import { UserContext } from "../../App";
 import "./Profile.css";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
   const { state, dispatch } = useContext(UserContext);
 
-  useEffect(async () => {
+  const fetchPosts = async () => {
     await fetch("/mypost", {
       headers: {
         "Content-Type": "application/json",
@@ -14,8 +14,11 @@ const Profile = () => {
       },
     })
       .then((res) => res.json())
-      .then((result) => setPosts(result.myPosts.reverse()));
-  }, []);
+      .then((result) => setPosts(result?.myPosts?.reverse()));
+  };
+
+  // async callbacks can't be passed to useEffect
+  useEffect(() => fetchPosts(), []);
 
   return (
     <div className="profile">

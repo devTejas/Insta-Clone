@@ -1,26 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import M from "materialize-css";
-import { signIn } from "../../services/UserAuthentication";
-import { UserContext } from "../../App";
+import { signUp } from "../services/UserAuthentication";
 
-const SignIn = () => {
-  const { state, dispatch } = useContext(UserContext);
-
+const SignUp = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const signInUser = async (guestUser = false) => {
+  const signUpUser = async () => {
     try {
-      const { token, user, error } = await signIn(email, password, guestUser);
+      const { token, error } = await signUp(name, email, password);
       if (error) throw error;
 
-      localStorage.setItem("jwt", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      dispatch({ type: "USER", payload: user });
-
-      M.toast({ html: "Signed in successfully!", classes: "#bff143" });
+      M.toast({ html: "User created & Signed In successfully!" });
       navigate("/");
     } catch (err) {
       M.toast({ html: err, classes: "#c62828 red darken-3" });
@@ -33,6 +27,17 @@ const SignIn = () => {
         <h2>Instagram</h2>
         <div className="" style={{ textAlign: "left" }}>
           <label className="label-field">
+            Name
+            <input
+              className="input-field"
+              type="text"
+              placeholder="Enter your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </label>
+          <label className="label-field">
             Email
             <input
               className="input-field"
@@ -40,6 +45,7 @@ const SignIn = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </label>
           <label className="label-field">
@@ -48,32 +54,25 @@ const SignIn = () => {
               className="input-field"
               type="password"
               placeholder="Enter your password"
+              minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </label>
         </div>
-        <div className="">
-          <button
-            onClick={signInUser}
-            className="btn waves-effect waves-light #64b5f6 blue darken-1"
-          >
-            Login
-          </button>
-          <button
-            className=""
-            // className="btn waves-effect waves-light #64b5f6 blue darken-1"
-            onClick={() => signInUser(true)}
-          >
-            Guest Login
-          </button>
-        </div>
-        <Link className="linkText" to="/signup">
-          Don't have an account?
+        <button
+          className="btn waves-effect waves-light #64b5f6 blue darken-1"
+          onClick={signUpUser}
+        >
+          SignUp
+        </button>
+        <Link className="linkText" to="/signin">
+          Already have an account?
         </Link>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;

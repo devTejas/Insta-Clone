@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Post from "../../components/Post/Post";
 import "./Home.css";
 
 const Home = () => {
   const [data, setData] = useState([]);
+  console.log(data);
   useEffect(() => {
     fetch("/allpost", {
       headers: {
@@ -16,18 +18,7 @@ const Home = () => {
   return (
     <div className="home">
       {data.map((item) => (
-        <div className="card home-card" key={item._id}>
-          <h5>{item.postedBy.name}</h5>
-          <div className="card-image">
-            <img src={item.photo} />
-          </div>
-          <div className="card-content">
-            <i className="material-icons likeIcon">favorite</i>
-            <h6>{item.title}</h6>
-            <p>{item.body}</p>
-            <input type="text" placeholder="add a comment" />
-          </div>
-        </div>
+        <Post key={item._id} {...item} />
       ))}
     </div>
   );
