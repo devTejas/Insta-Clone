@@ -1,6 +1,6 @@
 import M from "materialize-css";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../../App";
 import Post from "../../components/Post/Post";
 import { getItemLS, setItemLS } from "../../services/useLocalStorage";
@@ -38,11 +38,11 @@ const ViewPost = () => {
         .then(({ message }) => {
           const viewPostObj = getItemLS("viewPost");
           var x = viewPostObj[_id] ? setItemLS("viewPost", { _id: null }) : "";
-          M.toast({ html: message, classes: "" });
+          M.toast({ html: message, classes: "green" });
         });
     } catch (err) {
       console.log(err);
-      M.toast({ html: err, classes: "" });
+      M.toast({ html: err, classes: "red" });
     }
   };
 
@@ -72,8 +72,10 @@ const ViewPost = () => {
             <p className="">Comments</p>
             {commentsData?.map(({ _id, text, postedBy: { name } }) => (
               <div key={_id} className="commentItem">
-                <h6>{name}</h6>
-                <p>{text}</p>
+                <Link to={`/`}>
+                  <h6>{name}</h6>
+                </Link>
+                <h5>{text}</h5>
               </div>
             ))}
           </div>
