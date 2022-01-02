@@ -1,8 +1,8 @@
+import M from "materialize-css";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import M from "materialize-css";
-import { signIn } from "../services/UserAuthentication";
 import { UserContext } from "../App";
+import { signIn } from "../services/UserAuthentication";
 
 const SignIn = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -20,7 +20,7 @@ const SignIn = () => {
       localStorage.setItem("user", JSON.stringify(user));
       dispatch({ type: "USER", payload: user });
 
-      M.toast({ html: "Signed in successfully!", classes: "#bff143" });
+      M.toast({ html: "Signed in successfully!", classes: "green" });
       navigate("/");
     } catch (err) {
       M.toast({ html: err, classes: "#c62828 red darken-3" });

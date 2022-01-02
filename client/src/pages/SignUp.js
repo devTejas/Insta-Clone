@@ -1,6 +1,6 @@
+import M from "materialize-css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import M from "materialize-css";
 import { signUp } from "../services/UserAuthentication";
 
 const SignUp = () => {
@@ -12,9 +12,12 @@ const SignUp = () => {
   const signUpUser = async () => {
     try {
       const { token, error } = await signUp(name, email, password);
+      console.log(error);
       if (error) throw error;
-
-      M.toast({ html: "User created & Signed In successfully!" });
+      M.toast({
+        html: "User created & Signed In successfully!",
+        classes: "green",
+      });
       navigate("/");
     } catch (err) {
       M.toast({ html: err, classes: "#c62828 red darken-3" });
