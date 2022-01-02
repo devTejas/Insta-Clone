@@ -28,11 +28,12 @@ export const signUp = async (name, email, password) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("from signup - 31", data);
-        signIn(email, password);
+        // console.log("from signup - 31", data);
+        if (data.error) throw data.error;
+        else signIn(email, password);
       });
   } catch (error) {
-    return { error };
+    return { error }; // no need to pass an object as error is already an object
   }
 };
 
@@ -54,6 +55,6 @@ export const signIn = async (email, password, guestUser) => {
       .then((res) => res.json())
       .then((data) => data);
   } catch (error) {
-    return { error };
+    return error;
   }
 };
