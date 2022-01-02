@@ -6,13 +6,16 @@ import "./CreatePost.css";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [images, setImages] = useState();
+  const [images, setImages] = useState(null);
   const navigate = useNavigate();
 
   const uploadPost = async () => {
     try {
+      if (!title || !body || !images)
+        throw { error: "Please add all the Fields" };
+
       const photo = await uploadImage(); // photo -> imageURL
-      console.log(photo);
+      // console.log(photo);
       fetch("/createpost", {
         method: "post",
         headers: {
@@ -27,17 +30,17 @@ const CreatePost = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           if (data.error)
             M.toast({ html: data.error, classes: "#c62828 red darken-3" });
           else {
-            M.toast({ html: "Success" });
+            M.toast({ html: "Success", classes: "green" });
             navigate("/");
           }
         });
-    } catch (err) {
+    } catch ({ error }) {
       console.log(err);
-      M.toast({ html: err, classes: "#c62828 red darken-3" });
+      M.toast({ html: error, classes: "#c62828 red darken-3" });
     }
   };
 
