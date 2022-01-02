@@ -44,6 +44,11 @@
   color: var(--text);
 }
 
+.postUserName {
+  text-decoration: underline;
+  display: inline;
+}
+
 .postTitle {
   margin-bottom: 10px;
   font-size: large;
@@ -114,7 +119,7 @@
 }
 
 .commentItem > h6 {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .sendComment {
