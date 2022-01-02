@@ -5,23 +5,28 @@ import { UserContext } from "../App";
 
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const logoutUser = () => {
     localStorage.clear();
     dispatch({ type: "CLEAR" });
-    localStorage.length === 0 && M.toast({ html: "User logged out!" });
-    navigate("/signin");
+    localStorage.length === 0 &&
+      M.toast({ html: "User logged out!", classes: "green" });
+    navigate("/all");
   };
 
   return (
     <div className="navbar-fixed">
       <nav>
         <div className="nav-wrapper white">
-          <Link to={state ? "/" : "/signin"} className="brand-logo left">
+          <Link to={state ? "/" : "/all"} className="brand-logo left">
             Instagram
           </Link>
-          <ul id="nav-mobile" className="right">
+          <ul id="nav-mobile" style={{ display: "flex" }} className="right">
+            <li>
+              <Link to="/all">All Posts</Link>
+            </li>
             {!state && (
               <div>
                 <li>
@@ -35,7 +40,7 @@ const Navbar = () => {
             {state && (
               <div>
                 <li>
-                  <Link to="/profile">Profile</Link>
+                  <Link to={`/profile/${state?._id}`}>Profile</Link>
                 </li>
                 <li>
                   <Link to="/create">Upload</Link>
