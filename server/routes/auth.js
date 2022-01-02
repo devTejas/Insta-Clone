@@ -25,10 +25,16 @@ router.post("/signup", (req, res) => {
         user
           .save()
           .then((user) => res.json({ message: "Saved successfully!" }))
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+            return res.status(422).json({ error: err });
+          });
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      return res.status(422).json({ error: err });
+    });
 });
 
 // signin
@@ -52,8 +58,8 @@ router.post("/signin", (req, res) => {
       bcrypt.compare(password, savedUser.password).then((doMatch) => {
         if (doMatch) {
           const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-          const { _id, name, email } = savedUser;
-          res.json({ token, user: { _id, name, email } });
+          const { _id, name, email, followers, following } = savedUser;
+          res.json({ token, user: { _id, name, email, followers, following } });
         } else
           return res.status(422).json({ error: "Invalid Email or Password!" });
       });
