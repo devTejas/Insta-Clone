@@ -32,6 +32,31 @@ router.get("/allpost", (req, res) => {
     });
 });
 
+// get all following posts
+router.get("/post", requireLogin, (req, res) => {
+  Post.find({ postedBy: { $in: req.user.following } })
+    .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
+    .then((posts) => res.json({ posts }))
+    .catch((err) => {
+      console.log(err);
+      return res.status(422).json({ error: "It's not you, it's us!" });
+    });
+});
+
+// https://docs.mongodb.com/manual/reference/operator/query/ -> $nin or $ne
+// get all posts from people you don't follow
+router.get("/notfollowpost", requireLogin, (req, res) => {
+  Post.find({ postedBy: { $nin: req.user.following } })
+    .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
+    .then((posts) => res.json({ posts }))
+    .catch((err) => {
+      console.log(err);
+      return res.status(422).json({ error: "It's not you, it's us!" });
+    });
+});
+
 // create post
 router.post("/createpost", requireLogin, (req, res) => {
   const { title, body, photo } = req.body;
