@@ -28,7 +28,7 @@ export const signUp = async (name, email, password) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log("from signup - 31", data);
+        console.log("from signup - 31", data);
         if (data.error) throw data.error;
         else signIn(email, password);
       });
