@@ -9,18 +9,35 @@ h2 {
   font-family: "Grand Hotel", Verdana, Geneva, Tahoma, sans-serif, monospace;
 }
 
+.signUpContainer {
+  height: 91vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userImage {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border: 1px solid slateblue;
+}
+
 .mycard {
-  margin-top: 30px;
-  height: 84vh;
+  /* margin-top: 30px; */
+  /* height: 91vh; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .auth-card {
+  color: salmon;
   text-align: center;
-  padding: 20px;
-  margin: 20px auto;
+  padding: 0 20px;
+  /*  margin: 20px auto; */
   max-width: 400px;
 }
 

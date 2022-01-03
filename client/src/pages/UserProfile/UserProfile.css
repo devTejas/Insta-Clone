@@ -1,0 +1,13 @@
+.deleteBtn {
+  float: right;
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  top: 23px;
+  color: red;
+  z-index: 100;
+}
+
+.itemContainer {
+  position: relative !important;
+}
