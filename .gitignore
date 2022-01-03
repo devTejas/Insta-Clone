@@ -172,6 +172,7 @@ docs.md
 timeline.md
 
 # server
-keys.js
+prod.js
+dev.js
 
 # client
