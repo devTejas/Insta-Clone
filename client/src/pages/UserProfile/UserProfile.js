@@ -32,6 +32,25 @@ const UserProfile = () => {
       });
   };
 
+  const deletePost = (postId) => {
+    try {
+      fetch(`/deletepost/${postId}`, {
+        method: "delete",
+        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+      })
+        .then((res) => res.json())
+        .then(({ message }) => {
+          setPosts(posts.filter((post) => post._id !== postId));
+          M.toast({ html: message, classes: "green" });
+        });
+    } catch (err) {
+      console.log(err);
+      M.toast({ html: err, classes: "red" });
+    }
+  };
+
+  const debouncedDeletePost = debouncedCb(deletePost, 500);
+
   // check if currentUser already follows the user(profile currently seeing)
   const isFollower = () => {
     let val =
@@ -93,7 +112,7 @@ const UserProfile = () => {
         <div className="profile">
           <div className="profileContainer">
             <div className="profileImage">
-              <img src="/sirsourav.jpg" alt="Person Image" />
+              <img src={user?.imgURL} alt="Person Image" />
             </div>
             <div className="profileDescription">
               <h4>{user?.name}</h4>
@@ -116,6 +135,14 @@ const UserProfile = () => {
           <div className="gallery">
             {posts?.map((post) => (
               <div className="itemContainer" key={post._id}>
+                {state?._id === userid && (
+                  <i
+                    className="material-icons deleteBtn"
+                    onClick={() => debouncedDeletePost(post._id)}
+                  >
+                    delete
+                  </i>
+                )}
                 <img className="item" src={post.photo} alt="" />
               </div>
             ))}
