@@ -11,28 +11,23 @@ const checkEmailPassword = (email, password) => {
     throw new Error("Password cannot be less than 6 characters!");
 };
 
-export const signUp = async (name, email, password) => {
+export const signUp = async (name, email, password, imgURL) => {
   try {
     checkEmailPassword(email, password);
 
+    // console.log(name, email, password, imgURL);
     return await fetch("/signup", {
       method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password, imgURL }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        // console.log("from signup - 31", data);
+      .then(async (data) => {
         if (data.error) throw data.error;
-        else signIn(email, password);
+        else return await signIn(email, password);
       });
   } catch (error) {
+    console.log(error);
     return { error }; // no need to pass an object as error is already an object
   }
 };
@@ -43,18 +38,18 @@ export const signIn = async (email, password, guestUser) => {
 
     return await fetch("/signin", {
       method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        guestUser,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, guestUser }),
     })
       .then((res) => res.json())
-      .then((data) => data);
+      .then(({ token, user, error }) => {
+        if (error) throw error;
+        localStorage.setItem("jwt", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        return { error };
+      });
   } catch (error) {
-    return error;
+    console.log(error);
+    return { error };
   }
 };
