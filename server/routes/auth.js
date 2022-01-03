@@ -3,16 +3,17 @@ const router = express.Router();
 const User = require("mongoose").model("User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../keys");
+const { JWT_SECRET } = require("../config/keys");
 const requireLogin = require("../middleware/requireLogin");
 
 // signup
 router.post("/signup", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, imgURL } = req.body;
   if (!name || !email || !password)
     return res.status(422).json({ error: "Please fill all the fields!" });
 
-  User.findOne({ email: email })
+  // console.log(name, email, password, imgURL);
+  User.findOne({ email }) // {email : email}
     .then((savedUser) => {
       if (savedUser)
         return res.status(422).json({ error: "User already exists!" });
@@ -21,6 +22,7 @@ router.post("/signup", (req, res) => {
           name,
           email,
           password: hashedPassword,
+          imgURL,
         });
         user
           .save()
@@ -42,8 +44,8 @@ router.post("/signin", (req, res) => {
   let { email, password, guestUser } = req.body;
 
   if (guestUser) {
-    email = "tejashah456@gmail.com";
-    password = "heyTejasHere1";
+    email = "zsh@zsh.com";
+    password = "zeptalon";
   }
 
   // email/password are empty
@@ -58,8 +60,11 @@ router.post("/signin", (req, res) => {
       bcrypt.compare(password, savedUser.password).then((doMatch) => {
         if (doMatch) {
           const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-          const { _id, name, email, followers, following } = savedUser;
-          res.json({ token, user: { _id, name, email, followers, following } });
+          const { _id, name, email, followers, following, imgURL } = savedUser;
+          res.json({
+            token,
+            user: { _id, name, email, followers, following, imgURL },
+          });
         } else
           return res.status(422).json({ error: "Invalid Email or Password!" });
       });
