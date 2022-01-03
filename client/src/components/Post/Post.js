@@ -207,7 +207,7 @@ const Post = ({
               <input type="text" placeholder="add a comment" />
             </form>
           ) : (
-            <>Be the first to comment!</>
+            <>Login to comment!</>
           )}
         </div>
       </div>
