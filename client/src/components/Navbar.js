@@ -21,7 +21,7 @@ const Navbar = () => {
       <nav>
         <div className="nav-wrapper white">
           <Link to={state ? "/" : "/all"} className="brand-logo left">
-            Instagram
+            <span style={{ color: "salmon" }}>Instagram</span>
           </Link>
           <ul id="nav-mobile" style={{ display: "flex" }} className="right">
             <li>
