@@ -30,7 +30,8 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   const path = require("path");
   console.log(__dirname, path, PORT);
-  app.get("*", (req, res) => res.redirect("https://flipkartish.netlify.app/"));
+  app.get("/", (req, res) => res.redirect("https://flipkartish.netlify.app/"));
+  app.get("/insta", (req, res) => res.sendFile(path.resolve("/opt/render/project/src/", "client", "build", "index.html"));
 }
 app.listen(PORT, () =>
   console.log(`Server running at http://localhost:${PORT}`)
