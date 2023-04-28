@@ -31,7 +31,8 @@ if (process.env.NODE_ENV === "production") {
   const path = require("path");
   console.log(__dirname, path, PORT);
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve("/opt/render/project/src/", "client", "build", "index.html"))
+    // res.sendFile(path.resolve("/opt/render/project/src/", "client", "build", "index.html"))
+       res.redirect("https://flipkartish.netlify.app/");
   );
 }
 app.listen(PORT, () =>
